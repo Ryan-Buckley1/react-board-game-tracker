@@ -1,5 +1,6 @@
 const express = require("express");
 const { ApolloServer } = require("apollo-server-express");
+const cloudinary = require("cloudinary").v2;
 
 const db = require("./config/connection");
 const path = require("path");
@@ -7,6 +8,13 @@ const path = require("path");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleWare } = require("./utils/auth");
 const PORT = process.env.PORT || 3001;
+
+cloudinary.config({
+  cloud_name: "dtcrmm1fs",
+  api_key: "926534918754513",
+  api_secret: process.env.API_SECRET,
+  secure: true,
+});
 
 const server = new ApolloServer({
   typeDefs,
