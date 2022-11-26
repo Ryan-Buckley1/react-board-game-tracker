@@ -51,3 +51,7 @@ gameSchema.virtual("reviewCount").get(function () {
 gameSchema.virtual("categoryCount").get(function () {
   return this.categories.length;
 });
+
+const Game = model("Game", gameSchema);
+
+module.exports = Game;
