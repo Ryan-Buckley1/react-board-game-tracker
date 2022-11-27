@@ -7,3 +7,5 @@ const typeDefs = gql`
     email: String!
   }
 `;
+
+module.exports = typeDefs;
