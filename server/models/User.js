@@ -36,6 +36,12 @@ const userSchema = new Schema(
         ref: "Game",
       },
     ],
+    reviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     toJSON: {
@@ -66,6 +72,10 @@ userSchema.virtual("ownCount").get(function () {
 
 userSchema.virtual("wishCount").get(function () {
   return this.wishGames.length;
+});
+
+userSchema.virtual("reviewCount").get(function () {
+  return this.reviews.length;
 });
 
 const User = model("User", userSchema);
