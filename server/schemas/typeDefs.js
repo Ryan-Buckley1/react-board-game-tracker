@@ -72,6 +72,10 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     addCategory(name: String!): Category
     removeCategory(name: String!): Category
+    addFav(name: String!): User
+    addWish(name: String!): User
+    addOwn(name: String!): User
+    addFriend(name: String!): User
   }
 `;
 
