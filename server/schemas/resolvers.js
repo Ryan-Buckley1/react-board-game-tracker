@@ -9,7 +9,7 @@ const resolvers = {
         if (context.user) {
           const userData = await User.findOne({ _id: context.user._id })
             .select("-__v -password")
-            .populate("favGames wishGames ownGames reviews");
+            .populate("favGames wishGames ownGames reviews friends");
 
           return userData;
         }
@@ -72,11 +72,42 @@ const resolvers = {
     },
     category: async (parent, { name }, context) => {
       try {
-        const singleCategory = await Game.find({ categories: name });
+        const singleCategory = await Game.find({ categories: name }).select(
+          "-__v"
+        );
         return singleCategory;
       } catch (error) {
         return error;
       }
     },
+    categories: async (parent, args, context) => {
+      try {
+        const allCategories = await Category.find().select("-__v");
+        return allCategories;
+      } catch (error) {
+        return error;
+      }
+    },
+  },
+  Mutation: {
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const token = signToken(user);
+      return { token, user };
+    },
+    addUser: async (parent, args) => {
+      const user = await User.create(args);
+      const token = signToken(user);
+      return { token, user };
+    },
+    addCategory: async(parent),
   },
 };
