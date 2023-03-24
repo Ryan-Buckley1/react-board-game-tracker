@@ -71,6 +71,7 @@ const typeDefs = gql`
     login(email: String, password: String): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addCategory(name: String!): Category
+    addGame(gameData:)
     removeCategory(name: String!): Category
     addFav(name: String!): User
     addWish(name: String!): User
